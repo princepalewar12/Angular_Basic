@@ -1,4 +1,9 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  RequiredValidator,
+  Validators,
+} from '@angular/forms';
 import { UserserviceService } from './../services/userservice.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,6 +17,7 @@ export class UserformComponent implements OnInit {
   createForm!: FormGroup;
   editForm!: FormGroup;
   client_id: any;
+  name_regex: string = '^[A-Za-z][A-Za-z0-9_]{6,10}$';
 
   constructor(private UserserviceService: UserserviceService) {}
 
@@ -30,13 +36,12 @@ export class UserformComponent implements OnInit {
     this.createForm = new FormGroup({
       create_name: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(12),
+        Validators.pattern(this.name_regex)
       ]),
       create_company: new FormControl(),
       create_email: new FormControl('', [
         Validators.required,
-        Validators.email,
+        Validators.email
       ]),
       create_number: new FormControl(),
       create_date: new FormControl(),

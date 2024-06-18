@@ -31,7 +31,7 @@
         <td>{{ item.email }}</td>
         <td>{{ item.number }}</td>
         <td>{{ item.company?.name }}</td>
-        <td>{{ item?.address }}</td>
+        <td>{{ item.address }}</td>
         <td>{{ item.gender }}</td>
         <td>{{ item.date }}</td>
         <td>
@@ -212,14 +212,33 @@
       <div class="modal-body">
         <form [formGroup]="createForm">
           <div class="row">
-            <div class="col">
+            <div class="col form-group">
               <input
                 type="text"
                 class="form-control"
                 placeholder="Name"
                 aria-label="Name"
                 formControlName="create_name"
+                required
               />
+              <div
+                class="text-danger"
+                *ngIf="
+                  createForm.get('create_name')?.invalid &&
+                  (createForm.get('create_name')?.dirty ||
+                    createForm.get('create_name')?.touched)
+                "
+              >
+                <div
+                  *ngIf="createForm.get('create_name')?.errors?.['required']"
+                >
+                  Name Is Required
+                </div>
+                <div *ngIf="createForm.get('create_name')?.errors?.['pattern']">
+                  Atleast 6 character is required <br />
+                  More than 10 characters are not allowed
+                </div>
+              </div>
             </div>
 
             <div class="col">
@@ -241,6 +260,23 @@
                 aria-label="Email"
                 formControlName="create_email"
               />
+              <div
+                class="text-danger"
+                *ngIf="
+                  createForm.get('create_email')?.invalid &&
+                  (createForm.get('create_email')?.dirty ||
+                    createForm.get('create_email')?.touched)
+                "
+              >
+                <div
+                  *ngIf="createForm.get('create_email')?.errors?.['required']"
+                >
+                  Email is required
+                </div>
+                <div *ngIf="createForm.get('create_email')?.errors?.['email']">
+                  Email should be in proper format
+                </div>
+              </div>
             </div>
 
             <div class="col">
