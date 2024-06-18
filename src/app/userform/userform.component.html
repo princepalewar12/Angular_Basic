@@ -1,0 +1,320 @@
+<div class="container">
+  <div class="d-flex mt-5" style="justify-content: space-between">
+    <h1>Client Details</h1>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#createUserModel"
+    >
+      Create
+    </button>
+  </div>
+  <table class="table table-info mt-2">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Number</th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Date Of Birth</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of userData; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.number }}</td>
+        <td>{{ item.company?.name }}</td>
+        <td>{{ item?.address }}</td>
+        <td>{{ item.gender }}</td>
+        <td>{{ item.date }}</td>
+        <td>
+          <span
+            ><button
+              type="button"
+              class="btn btn-secondary me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              (click)="patchUserData(item)"
+            >
+              Update
+            </button></span
+          >
+          <span
+            ><button
+              type="button"
+              class="btn btn-success"
+              (click)="deleteClient(item)"
+            >
+              Delete
+            </button></span
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Model Edit -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm">
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                aria-label="Name"
+                formControlName="edit_name"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Company name"
+                aria-label="company name"
+                formControlName="edit_company"
+              />
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter Email"
+                aria-label="Email"
+                formControlName="edit_email"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone Number"
+                aria-label="number"
+                formControlName="edit_number"
+              />
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <input
+                type="date"
+                class="form-control"
+                aria-label="date"
+                formControlName="edit_date"
+              />
+            </div>
+
+            <div class="col">
+              <label for="gender">Gender: </label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="edit_gender"
+                    id="inlineRadio1"
+                    value="male"
+                    formControlName="edit_gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >Male</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="edit_gender"
+                    id="inlineRadio2"
+                    value="female"
+                    formControlName="edit_gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio2"
+                    >Female</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea"
+              formControlName="edit_address"
+            ></textarea>
+            <label for="floatingTextarea">Address</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="updateUser()">
+          Update changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Model Create -->
+<div
+  class="modal fade"
+  id="createUserModel"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createForm">
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                aria-label="Name"
+                formControlName="create_name"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Company name"
+                aria-label="company name"
+                formControlName="create_company"
+              />
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter Email"
+                aria-label="Email"
+                formControlName="create_email"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone Number"
+                aria-label="number"
+                formControlName="create_number"
+              />
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <input
+                type="date"
+                class="form-control"
+                aria-label="date"
+                formControlName="create_date"
+              />
+            </div>
+
+            <div class="col">
+              <label for="gender">Gender: </label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="create_gender"
+                    id="inlineRadio1"
+                    value="male"
+                    formControlName="create_gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >Male</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="create_gender"
+                    id="inlineRadio2"
+                    value="female"
+                    formControlName="create_gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio2"
+                    >Female</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea"
+              formControlName="create_address"
+            ></textarea>
+            <label for="floatingTextarea">Address</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="createUser()">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+{
+  "client": [
+    {
+      "id": 10,
+      "name": "prince",
+      "email": "prince@gmail.com",
+      "company": {
+        "name": "HSM Edifice"
+      },
+      "gender": "male",
+      "address": "432412341341asdsdsd",
+      "date": "2024-06-01",
+      "number": "432412341341asdsdsd"
+    },
+    {
+      "id": 11,
+      "name": "df",
+      "email": "asdf",
+      "company": {
+        "name": "asdf"
+      },
+      "gender": "male",
+      "address": "2352345",
+      "date": "2024-06-03",
+      "number": "2352345"
+    },
+    {
+      "id": 12,
+      "name": "BVBCVB",
+      "email": "XCVBXCVB",
+      "company": {
+        "name": "HSM Edifice"
+      },
+      "gender": "male",
+      "address": "tfgdfg5462354",
+      "date": "2024-06-01",
+      "number": "tfgdfg5462354"
+    }
+  ]
+}
