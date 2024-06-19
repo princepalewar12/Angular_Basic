@@ -17,7 +17,9 @@ export class UserformComponent implements OnInit {
   createForm!: FormGroup;
   editForm!: FormGroup;
   client_id: any;
-  name_regex: string = '^[A-Za-z][A-Za-z0-9_]{6,10}$';
+  delete_client_data: any;
+  clientName: any;
+  // name_regex: string = '^[A-Za-z][A-Za-z0-9_]{2,12}$';
 
   constructor(private UserserviceService: UserserviceService) {}
 
@@ -36,12 +38,15 @@ export class UserformComponent implements OnInit {
     this.createForm = new FormGroup({
       create_name: new FormControl('', [
         Validators.required,
-        Validators.pattern(this.name_regex)
+        Validators.minLength(3),
+        Validators.required,
+        Validators.maxLength(15),
+        // Validators.pattern(this.name_regex),
       ]),
       create_company: new FormControl(),
       create_email: new FormControl('', [
         Validators.required,
-        Validators.email
+        Validators.email,
       ]),
       create_number: new FormControl(),
       create_date: new FormControl(),
@@ -99,9 +104,17 @@ export class UserformComponent implements OnInit {
     });
   }
 
-  deleteClient(data: any) {
-    this.UserserviceService.deleteClient(data).subscribe();
+  openDeleteModel(data: any) {
+    this.delete_client_data = data;
+    this.clientName = this.delete_client_data.name;
+  }
+
+  deleteClient() {
+    this.UserserviceService.deleteClient(this.delete_client_data).subscribe();
+    let ref = document.getElementById('deleteModal');
+    ref?.click();
     this.showUserData();
+    console.log(this.clientName);
   }
 
   createUser() {
@@ -118,5 +131,8 @@ export class UserformComponent implements OnInit {
       console.log(res);
     });
     this.showUserData();
+  }
+  resetForm() {
+    this.createForm.reset();
   }
 }

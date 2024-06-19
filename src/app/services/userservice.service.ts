@@ -15,7 +15,7 @@ export class UserserviceService {
     return this.http.put('http://localhost:3000/client/' + data.id, data);
   }
 
-  deleteClient(data: any) {
+  deleteClient(data:any) {
     return this.http.delete('http://localhost:3000/client/' + data.id);
   }
 

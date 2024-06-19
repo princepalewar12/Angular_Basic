@@ -1,40 +1,28 @@
 {
   "client": [
     {
-      "id": 10,
-      "name": "prince",
+      "id": 8,
+      "name": "prince palewar",
       "email": "prince@gmail.com",
       "company": {
-        "name": "HSM Edifice"
+        "name": "HSM Edifice Pvt. Ltd."
       },
       "gender": "male",
-      "address": "432412341341asdsdsd",
-      "date": "2024-06-01",
-      "number": "432412341341asdsdsd"
+      "address": "Rachna Junction Road",
+      "date": "1221-12-12",
+      "number": "Rachna Junction Road"
     },
     {
-      "id": 11,
-      "name": "df",
-      "email": "asdf",
+      "name": "Roshan ",
+      "email": "roshan@gmail.com",
       "company": {
-        "name": "asdf"
+        "name": "HSM Edifice pvt ltd"
       },
+      "number": "9873453347",
+      "date": "2024-06-21",
+      "address": "Nandanwan",
       "gender": "male",
-      "address": "2352345",
-      "date": "2024-06-03",
-      "number": "2352345"
-    },
-    {
-      "id": 12,
-      "name": "BVBCVB",
-      "email": "XCVBXCVB",
-      "company": {
-        "name": "HSM Edifice"
-      },
-      "gender": "male",
-      "address": "tfgdfg5462354",
-      "date": "2024-06-01",
-      "number": "tfgdfg5462354"
+      "id": 10
     }
   ]
 }

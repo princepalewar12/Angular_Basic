@@ -1,12 +1,8 @@
 <div class="container">
   <div class="d-flex mt-5" style="justify-content: space-between">
     <h1>Client Details</h1>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#createUserModel"
-    >
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModel"
+      (click)="resetForm()">
       Create
     </button>
   </div>
@@ -35,26 +31,14 @@
         <td>{{ item.gender }}</td>
         <td>{{ item.date }}</td>
         <td>
-          <span
-            ><button
-              type="button"
-              class="btn btn-secondary me-2"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              (click)="patchUserData(item)"
-            >
+          <span><button type="button" class="btn btn-secondary me-2" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" (click)="patchUserData(item)">
               Update
-            </button></span
-          >
-          <span
-            ><button
-              type="button"
-              class="btn btn-success"
-              (click)="deleteClient(item)"
-            >
+            </button></span>
+          <span><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteModal"
+              (click)="openDeleteModel(item)">
               Delete
-            </button></span
-          >
+            </button></span>
         </td>
       </tr>
     </tbody>
@@ -62,118 +46,62 @@
 </div>
 
 <!-- Model Edit -->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="editForm">
           <div class="row">
             <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Name"
-                aria-label="Name"
-                formControlName="edit_name"
-              />
+              <input type="text" class="form-control" placeholder="Name" aria-label="Name"
+                formControlName="edit_name" />
             </div>
 
             <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Company name"
-                aria-label="company name"
-                formControlName="edit_company"
-              />
+              <input type="text" class="form-control" placeholder="Company name" aria-label="company name"
+                formControlName="edit_company" />
             </div>
           </div>
           <div class="row mt-4">
             <div class="col">
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Enter Email"
-                aria-label="Email"
-                formControlName="edit_email"
-              />
+              <input type="email" class="form-control" placeholder="Enter Email" aria-label="Email"
+                formControlName="edit_email" />
             </div>
 
             <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Phone Number"
-                aria-label="number"
-                formControlName="edit_number"
-              />
+              <input type="text" class="form-control" placeholder="Phone Number" aria-label="number"
+                formControlName="edit_number" />
             </div>
           </div>
           <div class="row mt-4">
             <div class="col">
-              <input
-                type="date"
-                class="form-control"
-                aria-label="date"
-                formControlName="edit_date"
-              />
+              <input type="date" class="form-control" aria-label="date" formControlName="edit_date" />
             </div>
 
             <div class="col">
               <label for="gender">Gender: </label>
               <div>
                 <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="edit_gender"
-                    id="inlineRadio1"
-                    value="male"
-                    formControlName="edit_gender"
-                  />
-                  <label class="form-check-label" for="inlineRadio1"
-                    >Male</label
-                  >
+                  <input class="form-check-input" type="radio" name="edit_gender" id="inlineRadio1" value="male"
+                    formControlName="edit_gender" />
+                  <label class="form-check-label" for="inlineRadio1">Male</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="edit_gender"
-                    id="inlineRadio2"
-                    value="female"
-                    formControlName="edit_gender"
-                  />
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Female</label
-                  >
+                  <input class="form-check-input" type="radio" name="edit_gender" id="inlineRadio2" value="female"
+                    formControlName="edit_gender" />
+                  <label class="form-check-label" for="inlineRadio2">Female</label>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="form-floating">
-            <textarea
-              class="form-control"
-              placeholder="Leave a comment here"
-              id="floatingTextarea"
-              formControlName="edit_address"
-            ></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+              formControlName="edit_address"></textarea>
             <label for="floatingTextarea">Address</label>
           </div>
         </form>
@@ -191,86 +119,53 @@
 </div>
 
 <!-- Model Create -->
-<div
-  class="modal fade"
-  id="createUserModel"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="createUserModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="createForm">
           <div class="row">
             <div class="col form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Name"
-                aria-label="Name"
-                formControlName="create_name"
-                required
-              />
-              <div
-                class="text-danger"
-                *ngIf="
-                  createForm.get('create_name')?.invalid &&
-                  (createForm.get('create_name')?.dirty ||
-                    createForm.get('create_name')?.touched)
-                "
-              >
-                <div
-                  *ngIf="createForm.get('create_name')?.errors?.['required']"
-                >
+              <input type="text" class="form-control" placeholder="Name" aria-label="Name" formControlName="create_name"
+                required />
+              <div class="text-danger" *ngIf="
+                                                    createForm.get('create_name')?.invalid &&
+                                                    (createForm.get('create_name')?.dirty ||
+                                                      createForm.get('create_name')?.touched)
+                                                  ">
+                <span *ngIf="createForm.get('create_name')?.errors?.['required']">
                   Name Is Required
-                </div>
-                <div *ngIf="createForm.get('create_name')?.errors?.['pattern']">
-                  Atleast 6 character is required <br />
+                </span>
+                <span *ngIf="createForm.get('create_name')?.errors?.['minlength']">
+                  Atleast 3 character is required <br />
+
+                </span>
+                <span *ngIf="createForm.get('create_name')?.errors?.['maxlength']">
+
                   More than 10 characters are not allowed
-                </div>
+                </span>
               </div>
             </div>
 
             <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Company name"
-                aria-label="company name"
-                formControlName="create_company"
-              />
+              <input type="text" class="form-control" placeholder="Company name" aria-label="company name"
+                formControlName="create_company" />
             </div>
           </div>
           <div class="row mt-4">
             <div class="col">
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Enter Email"
-                aria-label="Email"
-                formControlName="create_email"
-              />
-              <div
-                class="text-danger"
-                *ngIf="
-                  createForm.get('create_email')?.invalid &&
-                  (createForm.get('create_email')?.dirty ||
-                    createForm.get('create_email')?.touched)
-                "
-              >
-                <div
-                  *ngIf="createForm.get('create_email')?.errors?.['required']"
-                >
+              <input type="email" class="form-control" placeholder="Enter Email" aria-label="Email"
+                formControlName="create_email" />
+              <div class="text-danger" *ngIf="
+                          createForm.get('create_email')?.invalid &&
+                          (createForm.get('create_email')?.dirty ||
+                            createForm.get('create_email')?.touched)
+                        ">
+                <div *ngIf="createForm.get('create_email')?.errors?.['required']">
                   Email is required
                 </div>
                 <div *ngIf="createForm.get('create_email')?.errors?.['email']">
@@ -280,65 +175,35 @@
             </div>
 
             <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Phone Number"
-                aria-label="number"
-                formControlName="create_number"
-              />
+              <input type="text" class="form-control" placeholder="Phone Number" aria-label="number"
+                formControlName="create_number" />
             </div>
           </div>
           <div class="row mt-4">
             <div class="col">
-              <input
-                type="date"
-                class="form-control"
-                aria-label="date"
-                formControlName="create_date"
-              />
+              <input type="date" class="form-control" aria-label="date" formControlName="create_date" />
             </div>
 
             <div class="col">
               <label for="gender">Gender: </label>
               <div>
                 <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="create_gender"
-                    id="inlineRadio1"
-                    value="male"
-                    formControlName="create_gender"
-                  />
-                  <label class="form-check-label" for="inlineRadio1"
-                    >Male</label
-                  >
+                  <input class="form-check-input" type="radio" name="create_gender" id="inlineRadio1" value="male"
+                    formControlName="create_gender" />
+                  <label class="form-check-label" for="inlineRadio1">Male</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="create_gender"
-                    id="inlineRadio2"
-                    value="female"
-                    formControlName="create_gender"
-                  />
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Female</label
-                  >
+                  <input class="form-check-input" type="radio" name="create_gender" id="inlineRadio2" value="female"
+                    formControlName="create_gender" />
+                  <label class="form-check-label" for="inlineRadio2">Female</label>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="form-floating">
-            <textarea
-              class="form-control"
-              placeholder="Leave a comment here"
-              id="floatingTextarea"
-              formControlName="create_address"
-            ></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+              formControlName="create_address"></textarea>
             <label for="floatingTextarea">Address</label>
           </div>
         </form>
@@ -347,9 +212,29 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="createUser()">
+        <button type="button" class="btn btn-primary" (click)="createUser()" [disabled]="createForm.invalid">
           Save changes
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Delete Client Details.
+        <span class="text-danger fs-5">{{clientName}}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="deleteClient()">Delete</button>
       </div>
     </div>
   </div>
