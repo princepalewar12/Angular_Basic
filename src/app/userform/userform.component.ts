@@ -5,7 +5,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserserviceService } from './../services/userservice.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-userform',
@@ -19,9 +20,14 @@ export class UserformComponent implements OnInit {
   client_id: any;
   delete_client_data: any;
   clientName: any;
-  // name_regex: string = '^[A-Za-z][A-Za-z0-9_]{2,12}$';
 
-  constructor(private UserserviceService: UserserviceService) {}
+  imageUrl: any;
+
+  constructor(
+    private UserserviceService: UserserviceService,
+    private sanitizer: DomSanitizer,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.showUserData();
@@ -30,7 +36,9 @@ export class UserformComponent implements OnInit {
   showUserData() {
     this.UserserviceService.displayUserData().subscribe((res) => {
       this.userData = res;
-      console.log(this.userData);
+      
+      console.log(this.userData.profile)
+
     });
   }
 
@@ -52,6 +60,7 @@ export class UserformComponent implements OnInit {
       create_date: new FormControl(),
       create_gender: new FormControl(),
       create_address: new FormControl(),
+      create_profile: new FormControl(),
     });
 
     this.editForm = new FormGroup({
@@ -62,6 +71,7 @@ export class UserformComponent implements OnInit {
       edit_address: new FormControl(),
       edit_date: new FormControl(),
       edit_number: new FormControl(),
+      file: new FormControl(),
     });
   }
 
@@ -126,13 +136,43 @@ export class UserformComponent implements OnInit {
       date: this.createForm.value.create_date,
       address: this.createForm.value.create_address,
       gender: this.createForm.value.create_gender,
+      profile: this.imageUrl,
     };
-    this.UserserviceService.createUserData(clientData).subscribe((res) => {
+    this.UserserviceService.createUserData(clientData).subscribe((res:any)=>{
       console.log(res);
-    });
+      
+      let ref = document.getElementById('createUserModel');
+      ref?.click();
+    },error=>{
+      console.log(error);
+      
+    })
+
+
     this.showUserData();
   }
   resetForm() {
     this.createForm.reset();
+  }
+
+  processFile(event: any) {
+    console.log(event.target.files[0].name);
+
+    // if (event.target.files && event.target.files[0]) {
+      const file: File = event.target.files[0];
+
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+
+      reader.onload = (event: any) => {
+        let img = event.target.result;
+        console.log(img);
+        
+        this.imageUrl = reader.result as string;
+        console.log(this.imageUrl);
+
+        
+      };
+    // }
   }
 }

@@ -6,10 +6,11 @@
       Create
     </button>
   </div>
-  <table class="table table-info mt-2">
+  <table class="table table-info mt-2 border border-primary  ">
     <thead>
       <tr>
         <th scope="col">No.</th>
+        <th scope="col">Profile</th>
         <th scope="col">Name</th>
         <th scope="col">Email</th>
         <th scope="col">Number</th>
@@ -23,6 +24,10 @@
     <tbody>
       <tr *ngFor="let item of userData; let i = index">
         <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <img src="{{'data:image/jpg;base64' + item.profile}}" alt="profile Image">
+       
+        </td>
         <td>{{ item.name }}</td>
         <td>{{ item.email }}</td>
         <td>{{ item.number }}</td>
@@ -120,7 +125,7 @@
 
 <!-- Model Create -->
 <div class="modal fade" id="createUserModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
@@ -196,6 +201,14 @@
                   <input class="form-check-input" type="radio" name="create_gender" id="inlineRadio2" value="female"
                     formControlName="create_gender" />
                   <label class="form-check-label" for="inlineRadio2">Female</label>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <label for="gender">Choose Profile Picture</label>
+              <div>
+                <div class="input-group mb-3">
+                 <input   type="file"    formControlName="create_profile" (change)="processFile($event)">
                 </div>
               </div>
             </div>
