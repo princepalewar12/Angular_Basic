@@ -6,7 +6,7 @@
       Create
     </button>
   </div>
-  <table class="table table-info mt-2 border border-primary  ">
+  <table class="table table-info mt-2 border border-primary" style="display: table;">
     <thead>
       <tr>
         <th scope="col">No.</th>
@@ -24,18 +24,23 @@
     <tbody>
       <tr *ngFor="let item of userData; let i = index">
         <th scope="row">{{ i + 1 }}</th>
-        <td>
-          <img src="{{'data:image/jpg;base64' + item.profile}}" alt="profile Image">
-       
+        <td  >
+          <span  *ngIf="item?.profile !== 'no'">
+            <img style="width: 80px; height: 80px;" src="{{'data:image/jpg;base64' +item.profile }}" >
+          </span>
+          <span  *ngIf="item?.profile == 'no'">
+            <ngx-avatar name="{{item.name}}"></ngx-avatar>
+          </span>
         </td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.number }}</td>
-        <td>{{ item.company?.name }}</td>
-        <td>{{ item.address }}</td>
-        <td>{{ item.gender }}</td>
-        <td>{{ item.date }}</td>
-        <td>
+        
+        <td style="vertical-align:middle">{{ item.name }}</td>
+        <td style="vertical-align:middle">{{ item.email }}</td>
+        <td style="vertical-align:middle">{{ item.number }}</td>
+        <td style="vertical-align:middle;">{{ item.company?.name }}</td>
+        <td style="vertical-align:middle;  overflow-wrap:break-word;">{{ item.address }}</td>
+        <td style="vertical-align:middle">{{ item.gender }}</td>
+        <td style="vertical-align:middle">{{ item.date }}</td>
+        <td style="vertical-align:middle">
           <span><button type="button" class="btn btn-secondary me-2" data-bs-toggle="modal"
               data-bs-target="#exampleModal" (click)="patchUserData(item)">
               Update
@@ -52,7 +57,7 @@
 
 <!-- Model Edit -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -102,7 +107,17 @@
                 </div>
               </div>
             </div>
+
+            <div class="col">
+              <label for="gender">Choose Profile Picture</label>
+              <div>
+                <div class="input-group mb-3">
+                  <input type="file" formControlName="profile" class="form-control" (change)="processFile($event)">
+                </div>
+              </div>
+            </div>
           </div>
+
 
           <div class="form-floating">
             <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
@@ -208,7 +223,7 @@
               <label for="gender">Choose Profile Picture</label>
               <div>
                 <div class="input-group mb-3">
-                 <input   type="file"    formControlName="create_profile" (change)="processFile($event)">
+                  <input type="file" formControlName="profile" class="form-control" (change)="processFile($event)">
                 </div>
               </div>
             </div>

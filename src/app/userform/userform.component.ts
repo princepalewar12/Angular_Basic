@@ -1,12 +1,6 @@
-import {
-  FormControl,
-  FormGroup,
-  RequiredValidator,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserserviceService } from './../services/userservice.service';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-userform',
@@ -21,12 +15,12 @@ export class UserformComponent implements OnInit {
   delete_client_data: any;
   clientName: any;
 
-  imageUrl: any;
+  flag: any = 1;
+  imageUrl: any='no';
 
   constructor(
     private UserserviceService: UserserviceService,
-    private sanitizer: DomSanitizer,
-    private cd: ChangeDetectorRef
+    
   ) {}
 
   ngOnInit(): void {
@@ -36,9 +30,8 @@ export class UserformComponent implements OnInit {
   showUserData() {
     this.UserserviceService.displayUserData().subscribe((res) => {
       this.userData = res;
-      
-      console.log(this.userData.profile)
 
+       console.log(this.userData);
     });
   }
 
@@ -60,7 +53,7 @@ export class UserformComponent implements OnInit {
       create_date: new FormControl(),
       create_gender: new FormControl(),
       create_address: new FormControl(),
-      create_profile: new FormControl(),
+      profile: new FormControl(),
     });
 
     this.editForm = new FormGroup({
@@ -71,11 +64,13 @@ export class UserformComponent implements OnInit {
       edit_address: new FormControl(),
       edit_date: new FormControl(),
       edit_number: new FormControl(),
-      file: new FormControl(),
+      profile: new FormControl(),
     });
   }
 
   patchUserData(data: any) {
+    // console.log(data);
+    this.editForm.reset();
     this.client_id = data.id;
     this.editForm.patchValue({
       edit_name: data.name,
@@ -97,13 +92,14 @@ export class UserformComponent implements OnInit {
       gender: this.editForm.value.edit_gender,
       address: this.editForm.value.edit_address,
       date: this.editForm.value.edit_date,
-      number: this.editForm.value.edit_address,
+      number: this.editForm.value.edit_number,
+      profile: this.imageUrl,
     };
-    console.log(clientInfo);
+    // console.log(clientInfo);
 
     this.UserserviceService.updatUserData(clientInfo).subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
         let ref = document.getElementById('exampleModal');
         ref?.click();
         this.showUserData();
@@ -124,10 +120,22 @@ export class UserformComponent implements OnInit {
     let ref = document.getElementById('deleteModal');
     ref?.click();
     this.showUserData();
-    console.log(this.clientName);
+    // console.log(this.clientName);
   }
 
   createUser() {
+    // const formData = new FormData;
+    // let company:any = {name: this.createForm.value.create_company}
+    // formData.append('name',this.createForm.value.create_name)
+    // formData.append('email',this.createForm.value.create_email)
+    // formData.append('company',company)
+    // formData.append('number',this.createForm.value.create_number)
+    // formData.append('date',this.createForm.value.create_date)
+    // formData.append('address',this.createForm.value.create_address)
+    // formData.append('gender',this.createForm.value.create_gender)
+    // formData.append('profile',this.imageUrl)
+    // console.log(formData);
+
     let clientData = {
       name: this.createForm.value.create_name,
       email: this.createForm.value.create_email,
@@ -138,16 +146,19 @@ export class UserformComponent implements OnInit {
       gender: this.createForm.value.create_gender,
       profile: this.imageUrl,
     };
-    this.UserserviceService.createUserData(clientData).subscribe((res:any)=>{
-      console.log(res);
-      
-      let ref = document.getElementById('createUserModel');
-      ref?.click();
-    },error=>{
-      console.log(error);
-      
-    })
+    console.log(clientData);
+    
+    this.UserserviceService.createUserData(clientData).subscribe(
+      (res: any) => {
+        console.log(res);
 
+        let ref = document.getElementById('createUserModel');
+        ref?.click();
+      },
+      (error) => {
+        // console.log(error);
+      }
+    );
 
     this.showUserData();
   }
@@ -156,23 +167,29 @@ export class UserformComponent implements OnInit {
   }
 
   processFile(event: any) {
-    console.log(event.target.files[0].name);
-
-    // if (event.target.files && event.target.files[0]) {
+    // console.log(event.target.files[0].name);
+    // base 64
+    if (event.target.files && event.target.files[0]) {
       const file: File = event.target.files[0];
 
       var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(file);
 
       reader.onload = (event: any) => {
-        let img = event.target.result;
-        console.log(img);
-        
         this.imageUrl = reader.result as string;
         console.log(this.imageUrl);
-
-        
       };
-    // }
+    }
+    console.error('not Found');
+
+    // FormData
+
+    const formData = new FormData();
+
+    // console.log(event.target.files[0]);
+
+    // formData.append('File',event.target.files[0]);
+    // formData.append('name',thusoprij likjg1);
+    // const body = {content: formData};
   }
 }
